@@ -1,3 +1,4 @@
+
 # 💜 **Contrato de API - CodeRush**
 
 ## 🏆 **Introducción**
@@ -124,6 +125,35 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```json
 {
   "message": "Usuario eliminado exitosamente"
+}
+```
+
+❌ **404 Not Found** - Usuario no encontrado.
+
+```json
+{
+  "message": "Error",
+  "error": "Usuario no encontrado"
+}
+```
+
+### 🔹 Obtener usuario por ID
+
+**GET** `/api/users/:id`
+
+#### 🔹 Respuestas
+
+✅ **200 OK** - Usuario encontrado.
+
+```json
+{
+  "message": "Usuario obtenido exitosamente",
+  "data": {
+    "id": 1,
+    "name": "Ivan",
+    "email": "ivan@example.com",
+    "total_points": 1500
+  }
 }
 ```
 
@@ -331,6 +361,30 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```json
 {
   "message": "Highscore eliminado exitosamente"
+}
+```
+
+### 🔹 Obtener todos los Highscores
+
+**GET** `/api/highscores` ✅ **200 OK** - Lista de highscores.
+
+```json
+{
+  "message": "Highscores obtenidos exitosamente",
+  "data": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "score": 1000,
+      "date": "2023-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "score": 900,
+      "date": "2023-01-02T00:00:00.000Z"
+    }
+  ]
 }
 ```
 
