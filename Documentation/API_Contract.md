@@ -16,7 +16,7 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 
 ```json
 {
-  "name": "Ivan Iraldi",
+  "name": "Ivan",
   "email": "ivan@example.com",
   "password": "123456"
 }
@@ -29,8 +29,13 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```json
 {
   "message": "Usuario registrado exitosamente",
-  "data": {
-    "userId": 1
+  "token": "jwt_token",
+  "user": {
+    "id": 1,
+    "name": "Ivan",
+    "email": "ivan@example.com",
+    "total_points": 0,
+    "role": "user" // user o admin
   }
 }
 ```
@@ -65,7 +70,14 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 {
   "message": "Inicio de sesión exitoso",
   "data": {
-    "token": "jwt_token"
+    "token": "jwt_token",
+    "user": {
+      "id": 1,
+      "name": "Ivan",
+      "email": "user@example.com",
+      "total_points": 0,
+      "role": "user" // user o admin
+    }
   }
 }
 ```
@@ -97,7 +109,7 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
   "data": [
     {
       "id": 1,
-      "name": "Ivan Iraldi",
+      "name": "Ivan",
       "email": "ivan@example.com",
       "total_points": 1500
     }
@@ -115,7 +127,7 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 }
 ```
 
-✅ **404 Not Found** - Usuario no encontrado.
+❌ **404 Not Found** - Usuario no encontrado.
 
 ```json
 {
@@ -161,7 +173,13 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 {
   "message": "Tests obtenidos exitosamente",
   "data": [
-    { "id": 2, "name": "Test de CSS", "category": "Frontend", "visibility": "public" }
+    {
+      "id": 2,
+      "name": "Test de CSS",
+      "category": "Frontend",
+      "visibility": "public",
+      "number_of_questions": 10
+    }
   ]
 }
 ```
@@ -174,7 +192,25 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 {
   "message": "Test obtenido exitosamente",
   "data": {
-    "id": 2, "name": "Test de CSS", "category": "Frontend", "visibility": "public"
+    "test": {
+      "id": 2,
+      "name": "Test de CSS",
+      "category": "Frontend",
+      "visibility": "public"
+    },
+    "questions": [
+      {
+        "id": 1,
+        "test_id": 2,
+        "question_text": "¿Qué es CSS?",
+        "image_url": "https://example.com/image.png",
+        "correct_answer": "CSS",
+        "wrong_answer_1": "HTML",
+        "wrong_answer_2": "JavaScript",
+        "wrong_answer_3": "PHP"
+      }
+      // ...
+    ]
   }
 }
 ```
@@ -189,7 +225,7 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 }
 ```
 
-✅ **404 Not Found** - Test no encontrado.
+❌ **404 Not Found** - Test no encontrado.
 
 ```json
 {
@@ -204,7 +240,15 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 
 ```json
 {
-  "message": "Test actualizado exitosamente"
+  "message": "Test actualizado exitosamente",
+  "data": [
+    {
+      "id": 2,
+      "name": "Test de CSS",
+      "category": "Frontend",
+      "visibility": "private"
+    }
+  ]
 }
 ```
 
@@ -220,7 +264,13 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 {
   "message": "Pregunta creada exitosamente",
   "data": {
-    "questionId": 10
+    "test_id": 2,
+    "question_text": "¿Qué es CSS?",
+    "image_url": "https://example.com/image.png",
+    "correct_answer": "CSS",
+    "wrong_answer_1": "HTML",
+    "wrong_answer_2": "JavaScript", 
+    "wrong_answer_3": "PHP"
   }
 }
 ```
@@ -241,7 +291,16 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 
 ```json
 {
-  "message": "Pregunta actualizada exitosamente"
+  "message": "Pregunta actualizada exitosamente",
+   "data": {
+    "test_id": 2,
+    "question_text": "¿Qué es HTML?",
+    "image_url": "https://example.com/image.png",
+    "correct_answer": "HTML",
+    "wrong_answer_1": "CSS",
+    "wrong_answer_2": "JavaScript", 
+    "wrong_answer_3": "PHP"
+  }
 }
 ```
 
@@ -255,7 +314,13 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 
 ```json
 {
-  "message": "Highscore registrado exitosamente"
+  "message": "Highscore registrado exitosamente",
+  "data": {
+    "id": 1,
+    "user_id": 1,
+    "score": 1000,
+    "date": "2023-01-01T00:00:00.000Z"
+  }
 }
 ```
 
@@ -280,7 +345,16 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```json
 {
   "message": "Juegos obtenidos exitosamente",
-  "data": []
+  "data": [
+    {
+      "id": 1,
+      "player_1_id": 1,
+      "player_2_id": 2,
+      "game_status": "pending",
+      "start_time": "2023-01-01T00:00:00.000Z"
+    }
+    // ...
+  ]
 }
 ```
 
@@ -304,11 +378,24 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 
 ```json
 {
-  "message": "Estadísticas obtenidas exitosamente"
+  "message": "Estadísticas obtenidas exitosamente",
+  "data": {
+    "stats":{
+    "average_time": 1000,
+    "correct_answers": 10,
+    "total_played_games": 10,
+    "total_wins": 10,
+    "total_losses": 10
+  },
+  "userInfo":{
+    "name": "Ivan",
+    "role": "user", // user o admin
+    "total_points": 1000
+  }
+  }
 }
 ```
 
 ---
 
 ✨ **Este contrato define el funcionamiento completo de la API de CodeRush. ¡Listo para implementar! 🚀**
-

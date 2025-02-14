@@ -1,48 +1,78 @@
 /* Tailwind CSS */
 @import "tailwindcss";
 
+body {
+  background-image: url("./assets/img/bg.png");
+  background-size: 100px;
+  font-family: "Kanit", serif;
+  background-position-x: 80px;
+  color: #f8f8f8;
+  box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  display: none;
+  scrollbar-width: none;
+}
+
 /* Fuente personalizada */
 @font-face {
-  font-family: 'CodeRush';
-  src: url('./assets/fonts/coderush.ttf') format('truetype');
+  font-family: "CodeRush";
+  src: url("./assets/fonts/coderush.ttf") format("truetype");
 }
 
 .font-coderush {
-  font-family: 'CodeRush', sans-serif;
+  font-family: "CodeRush", sans-serif;
 }
 
 /* Colores de fondo */
-.bg-rosa {
+.rosa {
   background-color: #f49192;
 }
 
-.bg-naranja {
+.naranja {
   background-color: #f8b459;
 }
 
-.bg-celeste {
+.celeste {
   background-color: #78bcd9;
 }
 
-.bg-violeta {
+.violeta {
   background-color: #4c5474;
 }
 
+.violeta-oscuro {
+  background-color: #373c50;
+}
+
 /* Colores de texto */
-.text-rosa {
+.borde-fuente {
+  text-shadow: 1px 1px 2px #373c50, -1px -1px 2px #373c50, 1px -1px 2px #373c50,
+    -1px 1px 2px #373c50;
+}
+.borde-fuente-blanco {
+  text-shadow: 1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white,
+    -1px 1px 2px white;
+}
+
+.rosa-text {
   color: #f49192;
 }
 
-.text-naranja {
+.naranja-text {
   color: #f8b459;
 }
 
-.text-celeste {
+.celeste-text {
   color: #78bcd9;
 }
 
-.text-violeta {
+.celeste-text {
   color: #4c5474;
+}
+
+.celeste-oscuro-text {
+  color: #373c50;
 }
 
 /* Clases comunes de diseño responsivo */
@@ -52,7 +82,10 @@
     font-size: 14px;
   }
 
-  .bg-rosa, .bg-naranja, .bg-celeste, .bg-violeta {
+  .bg-rosa,
+  .bg-naranja,
+  .bg-celeste,
+  .bg-violeta {
     padding: 10px;
   }
 }
@@ -63,7 +96,10 @@
     font-size: 16px;
   }
 
-  .bg-rosa, .bg-naranja, .bg-celeste, .bg-violeta {
+  .bg-rosa,
+  .bg-naranja,
+  .bg-celeste,
+  .bg-violeta {
     padding: 15px;
   }
 }
@@ -74,7 +110,10 @@
     font-size: 18px;
   }
 
-  .bg-rosa, .bg-naranja, .bg-celeste, .bg-violeta {
+  .bg-rosa,
+  .bg-naranja,
+  .bg-celeste,
+  .bg-violeta {
     padding: 20px;
   }
 }
