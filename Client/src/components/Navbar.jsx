@@ -1,13 +1,20 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useAuth } from "../context/AuthContext";
 import logo from "../assets/img/logo.png";
+import { IoLogOut } from "react-icons/io5";
 
 export default function Navbar() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <nav className="violeta-oscuro border-b-4 border-white text-white px-6 py-3 shadow-lg rounded-b-2xl">
@@ -38,6 +45,16 @@ export default function Navbar() {
               {user.role === "admin" && (
                 <NavItem to="/admin" text="Admin" color="rosa" />
               )}
+              <button
+                className={`px-4 py-2 font-semibold rounded-lg text-center bg-red-300 borde-fuente gris-claro-text borde-fuente hover:bg-red-500 hover:scale-110 border-3 border-white transition-transform transform shadow-md`}
+                onClick={() => handleLogout()}
+              >
+                {isOpen ? (
+                  <IoLogOut className="text-red-400" size={28} />
+                ) : (
+                  <IoLogOut className="text-red-400" size={28} />
+                )}
+              </button>
             </>
           ) : (
             <>
@@ -71,9 +88,20 @@ export default function Navbar() {
           {user ? (
             <>
               <NavItem to="/profile" text="Perfil" mobile color={"naranja"} />
+
               {user.role === "admin" && (
                 <NavItem to="/admin" text="Admin" mobile color={"celeste"} />
               )}
+              <button
+                className={`px-4 py-2 font-semibold rounded-lg text-center bg-red-300 borde-fuente  gris-claro-text borde-fuente hover:bg-red-500 hover:scale-110 border-3 border-red-400 transition-transform transform shadow-md`} 
+                onClick={() => handleLogout()}
+              >
+                {isOpen ? (
+                  <span>Cerrar Sesion</span>
+                ) : (
+                  <span>Cerrar Sesion</span>
+                )}
+              </button>
             </>
           ) : (
             <>

@@ -11,28 +11,30 @@ import Highscores from "./views/Highscores";
 import Admin from "./views/Admin";
 import Unauthorized from "./views/Unauthorized";
 import NotFound from "./views/NotFound";
-import { useAuth } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
   const { user } = useAuth();
+  let userParsed = JSON.parse(localStorage.getItem('user')) || user;
   return (
     <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={user ? <Home /> : <Login />} />
-        <Route path="/register" element={user ? <Home /> : <Register />} />
+        <Route path="/login" element={userParsed ? <Navigate to="/" /> : <Login />} />
+        <Route path="/register" element={userParsed ? <Navigate to="/" />: <Register />} />
         <Route
           path="/profile"
-          element={user ? <Profile /> : <Unauthorized />}
+          element={userParsed ? <Profile /> : <Navigate to="/login" />}
         />
         <Route path="/tests" element={<Tests />} />
-        <Route path="/game" element={user ? <Game /> : <Unauthorized />} />
+        <Route path="/game" element={userParsed ? <Game /> : <Navigate to="/login" />} />
         <Route path="/highscores" element={<Highscores />} />
         <Route
           path="/admin"
-          element={user && user.role === "admin" ? <Admin /> : <Unauthorized />}
+          element={userParsed && user.role === "admin" ? <Admin /> :<Navigate to="/unauthorized" />}
         />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFound />} />

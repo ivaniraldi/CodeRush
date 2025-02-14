@@ -1,30 +1,23 @@
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Asumiendo que axios está configurado
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login, errorLogin, setErrorLogin } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Aquí puedes hacer tu solicitud de login con axios
-      const response = await axios.post("/api/login", { email, password });
-
-      if (response.data.success) {
-        // Redirige al home después de iniciar sesión correctamente
-        navigate("/");
-      } else {
-        setError("Credenciales incorrectas");
-      }
-    } catch (err) {
-      setError("Hubo un error al iniciar sesión. Error: " + err);
+    login(email, password)
+    setErrorLogin('');
+    navigate("/");
+    } catch (error) {
+      console.log(error);
     }
   };
-
   return (
     <div className="my-12 flex items-center justify-center">
       <div className="violeta p-8 rounded-lg shadow-lg w-full md:max-w-2xl max-w-md border-3 border-white">
@@ -63,9 +56,9 @@ const Login = () => {
             />
           </div>
 
-          {error && (
+          {errorLogin && (
             <div className="text-red-400 border-fuente text-sm my-4">
-              {error}
+              {errorLogin}
             </div>
           )}
           <button

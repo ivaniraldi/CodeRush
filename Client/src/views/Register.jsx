@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Asumiendo que axios está configurado
+import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const { register, errorRegister, setErrorRegister } = useAuth();
 
   const formatName = (name) => {
     // Regla de formato: Nombre Completo
@@ -26,26 +24,16 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setError("Las contraseñas no coinciden");
+      setErrorRegister("Las contraseñas no coinciden");
       return;
     }
-
     try {
-      // Aquí puedes hacer tu solicitud de registro con axios
-      const response = await axios.post("/api/register", {
-        email,
-        password,
-        name,
+      console.log(email, password, name);
+      register(name, email, password).then(() => {
+        setErrorRegister('');
       });
-
-      if (response.data.success) {
-        // Redirige al login después de registrarse correctamente
-        navigate("/login");
-      } else {
-        setError("Hubo un error al registrarse");
-      }
-    } catch (err) {
-      setError("Hubo un error al registrarse. Error: " + err);
+    } catch (error) {
+      setErrorRegister('Error en el registro: ' + error.response?.data?.message);
     }
   };
 
@@ -118,9 +106,9 @@ const Register = () => {
             />
           </div>
 
-          {error && (
+          {errorRegister && (
             <div className="text-red-400 text-sm my-4 text-center borde-fuente">
-              {error}
+              {errorRegister}
             </div>
           )}
           <button
