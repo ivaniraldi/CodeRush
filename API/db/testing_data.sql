@@ -52,8 +52,8 @@ VALUES
 -- Inserción de Estadísticas de Perfil para Alice y Bob
 INSERT INTO Profile_Stats (user_id, average_time, correct_answers, total_played_games, total_wins, total_losses) 
 VALUES 
-    (1, 5, 4, 2, 1, 1), 
-    (2, 4, 4, 2, 2, 0);
+    (23, 5, 4, 2, 1, 1), 
+    (23, 4, 4, 2, 2, 0);
 
 -- Inserción de una partida finalizada entre Alice y Bob
 UPDATE Games 
