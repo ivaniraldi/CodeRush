@@ -1,14 +1,19 @@
 # 💜 **Contrato de API - CodeRush**
 
 ## 🏆 **Introducción**
+
 Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos, parámetros de entrada y salida, posibles respuestas y códigos de estado HTTP.
 
 ---
+
 ## 🔑 **Autenticación**
+
 ### 🔹 Registro de usuario
+
 **POST** `/api/auth/register`
 
 #### 🔹 Parámetros de entrada (JSON)
+
 ```json
 {
   "name": "Ivan Iraldi",
@@ -18,7 +23,9 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 #### 🔹 Respuestas
+
 ✅ **201 Created** - Usuario registrado con éxito.
+
 ```json
 {
   "message": "Usuario registrado exitosamente",
@@ -27,7 +34,9 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
   }
 }
 ```
+
 ❌ **400 Bad Request** - Datos inválidos o incompletos.
+
 ```json
 {
   "message": "Error en la solicitud",
@@ -36,9 +45,11 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ### 🔹 Inicio de sesión
+
 **POST** `/api/auth/login`
 
 #### 🔹 Parámetros de entrada (JSON)
+
 ```json
 {
   "email": "ivan@example.com",
@@ -47,7 +58,9 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 #### 🔹 Respuestas
+
 ✅ **200 OK** - Inicio de sesión exitoso.
+
 ```json
 {
   "message": "Inicio de sesión exitoso",
@@ -56,7 +69,9 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
   }
 }
 ```
+
 ❌ **401 Unauthorized** - Credenciales incorrectas.
+
 ```json
 {
   "message": "Error en la autenticación",
@@ -65,12 +80,17 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ---
+
 ## 👥 **Usuarios**
+
 ### 🔹 Obtener todos los usuarios
+
 **GET** `/api/users`
 
 #### 🔹 Respuestas
+
 ✅ **200 OK** - Lista de usuarios.
+
 ```json
 {
   "message": "Usuarios obtenidos exitosamente",
@@ -86,14 +106,17 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ### 🔹 Eliminar usuario
-**DELETE** `/api/users/:id`
-✅ **200 OK** - Usuario eliminado.
+
+**DELETE** `/api/users/:id` ✅ **200 OK** - Usuario eliminado.
+
 ```json
 {
   "message": "Usuario eliminado exitosamente"
 }
 ```
+
 ✅ **404 Not Found** - Usuario no encontrado.
+
 ```json
 {
   "message": "Error",
@@ -102,11 +125,15 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ---
+
 ## 📝 **Tests**
+
 ### 🔹 Crear un test
+
 **POST** `/api/tests`
 
 #### 🔹 Parámetros de entrada (JSON)
+
 ```json
 {
   "name": "Test de React",
@@ -114,7 +141,9 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
   "visibility": "public"
 }
 ```
+
 ✅ **201 Created** - Test creado.
+
 ```json
 {
   "message": "Test creado exitosamente",
@@ -125,8 +154,9 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ### 🔹 Obtener tests de una categoría específica
-**GET** `/api/tests/category/:category`
-✅ **200 OK** - Lista de tests.
+
+**GET** `/api/tests/category/:category` ✅ **200 OK** - Lista de tests.
+
 ```json
 {
   "message": "Tests obtenidos exitosamente",
@@ -137,8 +167,9 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ### 🔹 Obtener un test específico
-**GET** `/api/tests/:id`
-✅ **200 OK** - Detalles del test.
+
+**GET** `/api/tests/:id` ✅ **200 OK** - Detalles del test.
+
 ```json
 {
   "message": "Test obtenido exitosamente",
@@ -149,14 +180,17 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ### 🔹 Eliminar un test
-**DELETE** `/api/tests/:id`
-✅ **200 OK** - Test eliminado.
+
+**DELETE** `/api/tests/:id` ✅ **200 OK** - Test eliminado.
+
 ```json
 {
   "message": "Test eliminado exitosamente"
 }
 ```
+
 ✅ **404 Not Found** - Test no encontrado.
+
 ```json
 {
   "message": "Error",
@@ -165,8 +199,9 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ### 🔹 Modificar un test
-**PUT** `/api/tests/:id`
-✅ **200 OK** - Test actualizado.
+
+**PUT** `/api/tests/:id` ✅ **200 OK** - Test actualizado.
+
 ```json
 {
   "message": "Test actualizado exitosamente"
@@ -174,10 +209,13 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ---
+
 ## ❓ **Preguntas**
+
 ### 🔹 Crear una pregunta
-**POST** `/api/questions`
-✅ **201 Created** - Pregunta creada.
+
+**POST** `/api/questions` ✅ **201 Created** - Pregunta creada.
+
 ```json
 {
   "message": "Pregunta creada exitosamente",
@@ -188,8 +226,9 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ### 🔹 Eliminar una pregunta
-**DELETE** `/api/questions/:id`
-✅ **200 OK** - Pregunta eliminada.
+
+**DELETE** `/api/questions/:id` ✅ **200 OK** - Pregunta eliminada.
+
 ```json
 {
   "message": "Pregunta eliminada exitosamente"
@@ -197,8 +236,9 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ### 🔹 Modificar una pregunta
-**PUT** `/api/questions/:id`
-✅ **200 OK** - Pregunta actualizada.
+
+**PUT** `/api/questions/:id` ✅ **200 OK** - Pregunta actualizada.
+
 ```json
 {
   "message": "Pregunta actualizada exitosamente"
@@ -206,10 +246,13 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ---
+
 ## 🏆 **Puntuaciones**
+
 ### 🔹 Registrar Highscore
-**POST** `/api/highscores`
-✅ **201 Created** - Highscore registrado.
+
+**POST** `/api/highscores` ✅ **201 Created** - Highscore registrado.
+
 ```json
 {
   "message": "Highscore registrado exitosamente"
@@ -217,8 +260,9 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ### 🔹 Eliminar un Highscore
-**DELETE** `/api/highscores/:id`
-✅ **200 OK** - Highscore eliminado.
+
+**DELETE** `/api/highscores/:id` ✅ **200 OK** - Highscore eliminado.
+
 ```json
 {
   "message": "Highscore eliminado exitosamente"
@@ -226,10 +270,13 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ---
+
 ## 🎮 **Juegos**
+
 ### 🔹 Obtener todos los juegos
-**GET** `/api/games`
-✅ **200 OK** - Lista de juegos.
+
+**GET** `/api/games` ✅ **200 OK** - Lista de juegos.
+
 ```json
 {
   "message": "Juegos obtenidos exitosamente",
@@ -238,8 +285,9 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ### 🔹 Modificar estado de un juego
-**PUT** `/api/games/:id`
-✅ **200 OK** - Estado del juego actualizado.
+
+**PUT** `/api/games/:id` ✅ **200 OK** - Estado del juego actualizado.
+
 ```json
 {
   "message": "Estado del juego actualizado exitosamente"
@@ -247,10 +295,13 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ---
+
 ## 📊 **Estadísticas de usuario**
+
 ### 🔹 Obtener estadísticas de un usuario
-**GET** `/api/stats/:userId`
-✅ **200 OK** - Estadísticas del usuario.
+
+**GET** `/api/stats/:userId` ✅ **200 OK** - Estadísticas del usuario.
+
 ```json
 {
   "message": "Estadísticas obtenidas exitosamente"
@@ -258,5 +309,6 @@ Este documento describe las rutas de la API de **CodeRush**, incluyendo métodos
 ```
 
 ---
+
 ✨ **Este contrato define el funcionamiento completo de la API de CodeRush. ¡Listo para implementar! 🚀**
 
