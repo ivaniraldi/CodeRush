@@ -1,31 +1,80 @@
-.bg-rosa{
+/* Tailwind CSS */
+@import "tailwindcss";
+
+/* Fuente personalizada */
+@font-face {
+  font-family: 'CodeRush';
+  src: url('./assets/fonts/coderush.ttf') format('truetype');
+}
+
+.font-coderush {
+  font-family: 'CodeRush', sans-serif;
+}
+
+/* Colores de fondo */
+.bg-rosa {
   background-color: #f49192;
 }
 
-.bg-naranja{
+.bg-naranja {
   background-color: #f8b459;
 }
 
-.bg-celeste{
+.bg-celeste {
   background-color: #78bcd9;
 }
 
-.bg-violeta{
+.bg-violeta {
   background-color: #4c5474;
 }
 
-.color-rosa{
+/* Colores de texto */
+.text-rosa {
   color: #f49192;
 }
 
-.color-naranja{
+.text-naranja {
   color: #f8b459;
 }
 
-.color-celeste{
+.text-celeste {
   color: #78bcd9;
 }
 
-.color-violeta{
+.text-violeta {
   color: #4c5474;
+}
+
+/* Clases comunes de diseño responsivo */
+@media (max-width: 640px) {
+  /* Para pantallas pequeñas (móviles) */
+  .font-coderush {
+    font-size: 14px;
+  }
+
+  .bg-rosa, .bg-naranja, .bg-celeste, .bg-violeta {
+    padding: 10px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Para pantallas medianas (tabletas) */
+  .font-coderush {
+    font-size: 16px;
+  }
+
+  .bg-rosa, .bg-naranja, .bg-celeste, .bg-violeta {
+    padding: 15px;
+  }
+}
+
+@media (min-width: 1025px) {
+  /* Para pantallas grandes (escritorio) */
+  .font-coderush {
+    font-size: 18px;
+  }
+
+  .bg-rosa, .bg-naranja, .bg-celeste, .bg-violeta {
+    padding: 20px;
+  }
 }
