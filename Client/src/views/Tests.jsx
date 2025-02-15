@@ -52,7 +52,7 @@ export default function TestsPage() {
           <li
                
                 className="btn btn-warning btn-sm btn-soft"
-                onClick={() => handleFilter("all")}
+                onClick={() => handleFilter(false)}
               >
                 Ver todos
               </li>
