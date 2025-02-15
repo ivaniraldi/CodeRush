@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { useAuth } from "./AuthContext";
 
 // Conectar con el servidor de Socket.io
-const socket = io(import.meta.env.VITE_API_URL); // Cambia la URL si es diferente
+const socket = io(`${import.meta.env.VITE_API_URL}/`); // Cambia la URL si es diferente
 
 // Crear el contexto
 const ChatContext = createContext();
