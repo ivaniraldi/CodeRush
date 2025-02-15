@@ -7,7 +7,14 @@ const http = require("http");
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketIo(server,{
+  cors: {
+    origin: "*", // Permitir solicitudes solo desde este origen (frontend)
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    allowedHeaders: ["Content-Type", "Authorization", "Accept"],
+    credentials: true,
+  },
+});
 
 app.use(express.json());
 app.use(cors());
@@ -23,10 +30,18 @@ app.get("/", (req, res) => {
 // Socket.io
 io.on("connection", (socket) => {
   console.log("🟢 Un usuario se ha conectado");
+
+  socket.on("send_message", (newMessage) => {
+    console.log("Mensaje recibido:", newMessage);
+    // Emitir el mensaje a todos los clientes conectados
+    io.emit("receive_message", newMessage);
+  });
+
   socket.on("disconnect", () => {
     console.log("🔴 Un usuario se ha desconectado");
   });
 });
+
 
 // Manejo de errores
 app.use((err, req, res, next) => {

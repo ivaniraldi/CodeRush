@@ -1,14 +1,7 @@
 /* Tailwind CSS */
 @import "tailwindcss";
 
-body {
-  background-image: url("./assets/img/bg.png");
-  background-size: 100px;
-  font-family: "Kanit", serif;
-  background-position-x: 80px;
-  color: #f8f8f8;
-  box-sizing: border-box;
-}
+
 ::-webkit-scrollbar {
   display: none;
   scrollbar-width: none;
@@ -116,4 +109,7 @@ body {
   .bg-violeta {
     padding: 20px;
   }
+}
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, sunset;
 }

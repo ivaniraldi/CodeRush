@@ -1,6 +1,9 @@
+import Chat from "../components/Chat";
 
 export default function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <Chat />
+    </div>
   )
 }

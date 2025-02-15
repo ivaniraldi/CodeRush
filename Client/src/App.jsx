@@ -19,7 +19,7 @@ function App() {
   const { user } = useAuth();
   let userParsed = JSON.parse(localStorage.getItem('user')) || user;
   return (
-    <>
+    <main className="h-screen flex flex-col">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -39,7 +39,7 @@ function App() {
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
+    </main>
   );
 }
 

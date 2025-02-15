@@ -41,23 +41,23 @@ const register = async (name, email, password) => {
   }
 };
 
-// Función para iniciar sesión
 const login = async (email, password) => {
   try {
     const response = await axios.post('/api/auth/login', { email, password });
     const { token, user } = response.data.data;
 
-    // Guardar el token y el usuario en el estado
     setToken(token);
     setUser(user);
-
-    // Almacenar el token en el localStorage después de actualizar el estado
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
   } catch (error) {
-    setErrorLogin('Error en el login: ' + error.response?.data?.message);
+    const errorMessage = error.response?.data?.message || "Error al iniciar sesión";
+    setErrorLogin(errorMessage);
+    
+    throw new Error(errorMessage); // 🔴 Lanza un error para que `handleSubmit` lo capture
   }
 };
+
 
 
   // Función para cerrar sesión
