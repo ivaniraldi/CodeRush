@@ -5,7 +5,7 @@ import logo from "../assets/img/logo.png";
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-
+  let newQuizzes = false;
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -80,7 +80,7 @@ export default function Navbar() {
                     />
                   </svg>
                   Quizzes
-                  <span className="badge badge-xs badge-warning">NEW</span>
+                  {newQuizzes && <span className="badge badge-xs badge-warning">NEW</span>}
                 </Link>
               </li>
               <li>
@@ -258,7 +258,7 @@ export default function Navbar() {
                     />
                   </svg>
                   Quizzes
-                  <span className="badge badge-xs badge-warning">NEW</span>
+                  
                 </Link>
               </li>
               <li>

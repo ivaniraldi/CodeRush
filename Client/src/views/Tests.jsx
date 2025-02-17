@@ -9,10 +9,10 @@ export default function TestsPage() {
   const [filteredTests, setFilteredTests] = useState([]);
 
   const colors = [
-    { button: "btn-accent", badge: "badge-accent" },
-    { button: "btn-success", badge: "badge-success" },
-    { button: "btn-warning", badge: "badge-warning" },
-    { button: "btn-error", badge: "badge-error" },
+    { button: "btn-warning", badge: "badge-error" },
+    { button: "btn-success", badge: "badge-info" },
+    { button: "btn-error", badge: "badge-accent" },
+    { button: "btn-accent", badge: "badge-success" },
   ];
 
   const handleFilter = (category) => {
