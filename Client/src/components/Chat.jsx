@@ -1,10 +1,9 @@
-import { useAuth } from "../context/AuthContext";
+
 import { useChat } from "../context/ChatContext";
 import { useEffect, useRef } from "react";
 
-const Chat = () => {
+const Chat = ({ user }) => {
   const { messages, message, setMessage, sendMessage } = useChat();
-  const { user } = useAuth();
   const messagesEndRef = useRef(null); // Referencia al final del chat
 
   useEffect(() => {
