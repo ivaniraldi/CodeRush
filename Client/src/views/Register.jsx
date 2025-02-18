@@ -1,131 +1,154 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({});
   const { register, errorRegister, setErrorRegister } = useAuth();
+  const navigate = useNavigate();
 
-  const formatName = (name) => {
-    // Regla de formato: Nombre Completo
-    return name
+  const formatName = (name) =>
+    name
       .trim()
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-  };
 
-  const handleNameChange = (e) => {
-    setName(formatName(e.target.value));
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!name.trim()) {
+      newErrors.name = "El nombre es obligatorio.";
+    } else if (name.length < 3) {
+      newErrors.name = "Debe tener al menos 3 caracteres.";
+    }
+
+    if (!email) {
+      newErrors.email = "El email es obligatorio.";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Formato de email inválido.";
+    }
+
+    if (!password) {
+      newErrors.password = "La contraseña es obligatoria.";
+    } else if (password.length < 6) {
+      newErrors.password = "Debe tener al menos 6 caracteres.";
+    }
+
+    if (password !== confirmPassword) {
+      newErrors.confirmPassword = "Las contraseñas no coinciden.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      setErrorRegister("Las contraseñas no coinciden");
-      return;
-    }
+    if (!validateForm()) return;
+
     try {
-      console.log(email, password, name);
-      register(name, email, password).then(() => {
-        setErrorRegister('');
-      });
+      await register(formatName(name), email, password);
+      setErrorRegister("");
+      navigate("/");
     } catch (error) {
-      setErrorRegister('Error en el registro: ' + error.response?.data?.message);
+      setErrorRegister("Error en el registro: " + (error.response?.data?.message || "Inténtalo de nuevo."));
     }
   };
 
   return (
-    <div className="my-12 flex items-center justify-center">
-      <div className="violeta p-8 rounded-lg shadow-lg w-full md:max-w-2xl max-w-md border-3 border-white">
-        <h2
-          className="font-coderush mb-4 text-center text-white"
-          style={{ fontSize: "2.5rem" }}
-        >
-          Crear una Cuenta
-        </h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-white text-sm mb-2">
-              Tu nombre
-            </label>
-            <input
-              type="name"
-              id="name"
-              className="w-full p-2 rounded-lg bg-white text-gray-600 border-2 border-white focus:outline-none focus:border-gray-700"
-              value={name}
-              onChange={(e) => handleNameChange(e)}
-              required
-            />
-          </div>
+    <div className="flex items-center justify-center h-full p-4">
+      <div className="bg-base-200 w-full max-w-4xl rounded-lg shadow-lg p-6 md:p-12">
+        <div className="flex flex-col-reverse md:flex-row items-center gap-6">
+          
+          {/* Sección del formulario */}
+          <div className="w-full md:w-1/2">
+            <div className="bg-base-100 p-6 md:p-8 rounded-lg shadow-lg">
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-4"
+                onKeyDown={(e) => e.key === "Enter" && handleSubmit(e)} // ✅ Permite enviar con Enter
+              >
+                <div>
+                  <label className="block font-medium">Nombre</label>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full mt-1"
+                    placeholder="Ingresa tu nombre"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                </div>
 
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-white text-sm mb-2">
-              Correo Electrónico
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="w-full p-2 rounded-lg bg-white text-gray-600 border-2 border-white focus:outline-none focus:border-gray-700"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
+                <div>
+                  <label className="block font-medium">Email</label>
+                  <input
+                    type="email"
+                    className="input input-bordered w-full mt-1"
+                    placeholder="Ingresa tu email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                </div>
 
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-white text-sm mb-2">
-              Contraseña
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full p-2 rounded-lg bg-white text-gray-600 border-2 border-white focus:outline-none focus:border-gray-700"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+                <div>
+                  <label className="block font-medium">Contraseña</label>
+                  <input
+                    type="password"
+                    className="input input-bordered w-full mt-1"
+                    placeholder="Ingresa tu contraseña"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+                </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-white text-sm mb-2"
-            >
-              Confirmar Contraseña
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              className="w-full p-2 rounded-lg bg-white text-gray-600 border-2 border-white focus:outline-none focus:border-gray-700"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
+                <div>
+                  <label className="block font-medium">Confirmar Contraseña</label>
+                  <input
+                    type="password"
+                    className="input input-bordered w-full mt-1"
+                    placeholder="Confirma tu contraseña"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                  {errors.confirmPassword && (
+                    <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+                  )}
+                </div>
 
-          {errorRegister && (
-            <div className="text-red-400 text-sm my-4 text-center borde-fuente">
-              {errorRegister}
+                <p className="text-sm">
+                  ¿Ya tienes cuenta?{" "}
+                  <Link to="/login" className="text-blue-500 hover:underline">
+                    Inicia sesión aquí
+                  </Link>
+                </p>
+
+                {errorRegister && <p className="alert alert-error text-center mt-2">{errorRegister}</p>}
+
+                <button className="btn btn-warning btn-soft w-full mt-2" type="submit">
+                  Registrarse
+                </button>
+              </form>
             </div>
-          )}
-          <button
-            type="submit"
-            className="w-full p-2 rosa text-white font-semibold rounded-lg hover:violeta hover:text-white transition-all"
-          >
-            Registrarse
-          </button>
-        </form>
-        <div className="mt-4 text-center text-sm text-white">
-          ¿Ya tienes cuenta?{" "}
-          <a
-            href="/login"
-            className="borde-fuente text-gray-400 hover:underline"
-          >
-            Inicia sesión aquí
-          </a>
+          </div>
+
+          {/* Sección de texto */}
+          <div className="text-center md:text-left w-full md:w-1/2">
+            <h1 className="text-4xl font-bold">¡Únete a la diversión!</h1>
+            <p className="py-4 text-lg">
+              Regístrate para desafiar a otros jugadores, aprender nuevas habilidades
+              y alcanzar la cima de nuestra tabla de clasificación.
+            </p>
+            <p className="text-lg font-semibold">¡Juega y aprende al mismo tiempo!</p>
+          </div>
+
         </div>
       </div>
     </div>

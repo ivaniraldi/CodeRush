@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState } from "react";
 
 const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
-  const [game, setGame] = useState(null);
+  const [game, setGame] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
   const mockQuestion = {
     id: 1,

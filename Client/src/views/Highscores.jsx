@@ -10,7 +10,7 @@ export default function Highscores() {
             className="w-50 h-50 md:mb-0 md:w-100 md:h-100 rounded-2xl"
           />
         </div>
-        <div className="bg-base-200 p-4 h-full grid gap-2 justify-between grid-rows-2[auto_1fr] grid-cols-1 h-80 ">
+        <div className="bg-base-200 p-4 h-full grid gap-2 justify-between grid-rows-2[auto_1fr] grid-cols-1">
           <div className="flex flex-col justify-center items-center">
             <div>
             <div className="inline-grid *:[grid-area:1/1]">

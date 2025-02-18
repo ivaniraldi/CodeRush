@@ -23,8 +23,6 @@ export const TestsProvider = ({ children }) => {
     }
   }, []);
 
-  console.log(tests);
-
   useEffect(() => {
     fetchTests();
   }, [fetchTests]);
