@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 import { useChat } from "../context/ChatContext";
 import { useEffect, useRef } from "react";
