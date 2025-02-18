@@ -15,7 +15,7 @@ export default function TestCard({ test, color }) {
             </p>
         <div className=" flex justify-end card-actions">
           <button
-            className={`btn btn-soft ${color.button} border border-2 border-base-300 hover:border-base-100`}
+            className={`btn btn-soft ${color.button} border-2 border-base-300 hover:border-base-100`}
           >
             Comenzar
           </button>
